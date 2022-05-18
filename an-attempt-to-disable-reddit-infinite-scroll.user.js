@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name           An Attempt to Disable Reddit Infinite Scroll
 // @namespace      1650776408
-// @description    Attempts to disable Reddit infinite scroll by the help of blocking the address that dynamically loads posts
-// @version        0.01
+// @description    Attempts to disable Reddit infinite scroll by the help of blocking the address that dynamically loads posts (works on subreddits only)
+// @version        0.02
 // @author         FlowrForWar
 // @match          https://www.reddit.com/r/*
 // @grant          none
@@ -36,7 +36,12 @@ setMutationHandler({
 			// return !1;
 			const lastPost = [...document.querySelectorAll('div[data-testid="post-container"][id^="t3_"]')].pop();
 			node.offsetParent.setAttribute('style', 'text-align: center; margin-top: 20px;');
-			const href = `${location.origin}${location.pathname}?after=${lastPost.id}`;
+			// const href = `${location.origin}${location.pathname}?after=${lastPost.id}`;
+			const href = location.search.includes('after=')
+				? location.href.replace(/after=[^&]+/, `after=${lastPost.id}`)
+				: location.search
+				? location.href + `&after=${lastPost.id}`
+				: location.href + `?after=${lastPost.id}`;
 			const style = `border-radius: 4px; color: #FFF; white-space: nowrap; background-color: #E91E63; padding: 5px 20px 5px 20px; margin: 5px;`;
 			node.offsetParent.innerHTML = `<a href="${href}" style="${style}">NEXT ›</a>`;
 			return !1;
