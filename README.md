@@ -1,4 +1,4 @@
-# An-Attempt-to-Disable-Reddit-Infinite-Scroll
+# An-Attempt-to-Disable-Reddit-Infinite-Scroll (works on subreddits only)
 Attempts to disable Reddit infinite scroll by the help of blocking the address that dynamically loads posts
 
 If there is another (an elegant) way to disable Reddit infinite scroll, please do share.
